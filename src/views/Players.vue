@@ -53,6 +53,7 @@ export default {
       confirmed: false
     };
   },
+  mounted() {},
   methods: {
     addPlayer: function() {
       this.players.push(this.name);
