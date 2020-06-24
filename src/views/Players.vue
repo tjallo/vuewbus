@@ -9,7 +9,7 @@
       </v-list-item>
     </v-list>
 
-    <v-form @submit.prevent="addPlayer" id="WriteForm" method="post">
+    <v-form @submit.prevent="addPlayer" id="WriteForm" method="post" v-if="!confirmed">
       <v-text-field
         class="mx-16 mt-4"
         name="name"
@@ -28,6 +28,19 @@
       >Add Player</v-btn>
       <v-btn class="ma-2" @click="removeLastPlayer" rounded outlined color="red">Remove player</v-btn>
     </v-form>
+
+    <v-form @submit.prevent="confirmForm" id="confirmForm1" method="post" v-if="!confirmed">
+      <v-btn
+        class="ma-6 ml-16"
+        color="yellow accent-2"
+        rounded
+        outlined
+        type="submit"
+        form="confirmForm1"
+        @click="confirmForm"
+        :disabled="!players.length"
+      >Confirm Players</v-btn>
+    </v-form>
   </v-card-text>
 </template>
 
@@ -36,7 +49,8 @@ export default {
   data() {
     return {
       name: "",
-      players: []
+      players: [],
+      confirmed: false
     };
   },
   methods: {
@@ -47,6 +61,11 @@ export default {
     },
     removeLastPlayer: function() {
       this.players.pop();
+    },
+    confirmForm: function() {
+      if (this.players.length) {
+        this.confirmed = true;
+      }
     }
   }
 };
