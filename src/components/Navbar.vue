@@ -36,9 +36,8 @@ export default {
   data: () => ({
     drawer: true,
     links: [
-      { icon: "mdi-view-dashboard", text: "Dashboard", route: "/" },
-      { icon: "mdi-folder", text: "Upload", route: "/upload" },
-      { icon: "mdi-rotate-3d", text: "Render", route: "/render" }
+      { icon: "mdi-account-box-multiple", text: "Players", route: "/" },
+      { icon: "mdi-gamepad-variant-outline", text: "Start Game", route: "/Startgame" },
     ]
   }),
   created() {}

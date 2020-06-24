@@ -1,8 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Dashboard from './views/Dashboard'
-import Render from './views/Render'
-import Upload from './views/Upload'
+import Players from './views/Players'
+import Startgame from './views/Startgame'
 
 Vue.use(Router)
 
@@ -12,18 +11,13 @@ export default new Router({
     routes: [
         {
             path: '/',
-            name: 'dashboard',
-            component: Dashboard
+            name: 'players',
+            component: Players
         },
         {
-            path: '/render',
-            name: 'render',
-            component: Render
-        },
-        {
-            path: '/upload',
-            name: 'dashboard',
-            component: Upload
+            path: '/startgame',
+            name: 'startgame',
+            component: Startgame
         },
     ]
 });
