@@ -20,5 +20,8 @@ def getAllPlayerNames():
 
 def getAndAddCardToPlayer(playerID):
     card = Cards.getCard()
-    players[playerID][3].append(card)
+    players[playerID][2].append(card)
     return card
+
+def returnPlayerById(playerID):
+    return players[playerID][0]
