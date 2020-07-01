@@ -6,17 +6,19 @@ from fastapi.middleware.cors import CORSMiddleware
 # Import Local Dependencies
 from api.game import cards as Cards
 from api.game import players as Players
+from api.game import turncount as Turn
 
-turnCount = 0
-modulusDivider = 0
 
-def getPlayerTurn(tc, md):
-    if tc == 0:
-        turnCount =+ 1
+
+def getPlayerTurn():
+    Turn.modulus = len(Players.getAllPlayerNames())
+    if Turn.n == 0:
+        Turn.n =+ 1
         return 0
-    turn = tc % md
-    turnCount =+ 1
-    return turn
+    turn1 = Turn.n % Turn.modulus
+    Turn.n += 1
+    return turn1
+    
 
 #Setup FastAPI
 app = FastAPI()
@@ -80,8 +82,8 @@ ROUND 1
 
 @app.get('/round1/1/')
 async def getCard1():
-    turn = getPlayerTurn(turnCount, modulusDivider)
+    turn = getPlayerTurn()
     card = Players.getAndAddCardToPlayer(turn)
     player = Players.returnPlayerById(turn)
 
-    return {"card": Cards.cardParser(card[0], card[1]), "Turn": turn, "Turncount": turnCount, "Player": player}
+    return {"card": Cards.cardParser(card[0], card[1]), "Turn": turn, "Turncount": Turn.n, "Player": player}

@@ -1,5 +1,5 @@
 <template>
-  <v-card-text class="ma-3">
+  <v-card-text v-if="players[0]" class="ma-3">
     <h2 class="ma-2 title">Current players:</h2>
     <v-list-item-group v-if="players">
       <v-list-item v-for="player in players" :key="player">
@@ -18,7 +18,7 @@ let axios = require("axios");
 export default {
   data() {
     return {
-      players: [null]
+      players: []
     };
   },
   mounted() {
