@@ -95,7 +95,7 @@ export default {
     return {
       player: "Tjalle",
       playerTurn: '',
-      cardName: 'Voorbeeldkaart',
+      cardName: 'Hier moeten de kaarten komen die de speler al heeft',
       round: 0,
     };
   },
