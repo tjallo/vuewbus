@@ -6,13 +6,17 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import 'roboto-fontface/css/roboto/roboto-fontface.css'
 import '@mdi/font/css/materialdesignicons.css'
+import AsyncComputed from 'vue-async-computed'
 
 Vue.config.productionTip = false
 
 new Vue({
+  AsyncComputed,
   axios,
   VueAxios,
   router,
   vuetify,
   render: h => h(App)
 }).$mount('#app')
+
+Vue.http.headers.common['Access-Control-Allow-Origin'] = true

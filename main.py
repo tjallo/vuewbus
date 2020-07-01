@@ -1,5 +1,7 @@
 # Import Dependencies 
 from fastapi import FastAPI
+import json
+from fastapi.middleware.cors import CORSMiddleware
 
 # Import Local Dependencies
 from api.game import cards as Cards
@@ -7,6 +9,14 @@ from api.game import players as Players
 
 #Setup FastAPI
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/")
 async def root():
@@ -40,3 +50,10 @@ CARDS
 async def getCardForPlayer(playerID):
     card = Players.getAndAddCardToPlayer(playerID)    
     return card
+
+@app.post("/giveMePlayerData/")
+async def giveMePlayerData(data):
+    data = json.loads(data)
+    for name in data:
+        Players.addPlayer(name)
+    return(data)

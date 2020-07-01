@@ -41,16 +41,28 @@
         :disabled="!players.length"
       >Confirm Players</v-btn>
     </v-form>
+
+    <v-btn
+      v-if="confirmed && !sent"
+      class="ma-6 ml-16"
+      color="green accent-4"
+      rounded
+      outlined
+      @click="sendForm"
+    >Send players</v-btn>
   </v-card-text>
 </template>
 
 <script>
+const axios = require('axios')
+
 export default {
   data() {
     return {
       name: "",
       players: [],
-      confirmed: false
+      confirmed: false,
+      sent: false
     };
   },
   mounted() {},
@@ -67,6 +79,25 @@ export default {
       if (this.players.length) {
         this.confirmed = true;
       }
+    },
+    sendForm: function() {
+      let formdata = this.players;
+      console.log(formdata);
+      this.sent = true;
+      formdata = JSON.stringify(formdata);
+      var config = {
+        method: "post",
+        url: `http://127.0.0.1:8000/giveMePlayerData/?data=${formdata}`,
+        headers: {}
+      };
+
+      axios(config)
+        .then(function(response) {
+          console.log(JSON.stringify(response.data));
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
     }
   }
 };
