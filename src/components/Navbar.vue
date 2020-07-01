@@ -37,7 +37,11 @@ export default {
     drawer: true,
     links: [
       { icon: "mdi-account-box-multiple", text: "Players", route: "/" },
-      { icon: "mdi-gamepad-variant-outline", text: "Start Game", route: "/Startgame" },
+      { icon: "mdi-gamepad-variant-outline", text: "Confirmed Players", route: "/Startgame" },
+      { icon: "mdi-numeric-1-circle-outline", text: "Round 1", route: "/round1" },
+      { icon: "mdi-numeric-2-circle-outline", text: "Round 2", route: "/round2" },
+      { icon: "mdi-numeric-3-circle-outline", text: "Round 3", route: "/round3" },
+      
     ]
   }),
   created() {}
