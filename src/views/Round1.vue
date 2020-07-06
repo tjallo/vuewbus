@@ -1,22 +1,33 @@
 <template>
   <v-app>
     <v-container>
+      <v-btn @click="getPlayerAndRound">getPlayerAndRound</v-btn>
       <v-text-field
         class="centered-input text--darken-3 mt-3"
         :value="playerTurn"
         color="grey lighten-43"
-        
         readonly
       />
-      <v-text-field v-if="round != 0"
+      <v-text-field
+        v-if="round != 0"
         class="centered-input text--darken-3 mt-3"
         :value="cardName"
         color="grey lighten-43"
-        
         readonly
       />
     </v-container>
-    <v-container class="my-5 round1" v-if="round == 0">
+    <v-container v-if="!start">
+      <v-card>
+        <v-card-title primary-title class="justify-center">
+        <v-card-actions class="justify-center">
+          <v-btn large rounded flat color="primary" class="btn px-5 py-7" @click="disableStart">
+            Start
+          </v-btn>          
+        </v-card-actions>
+        </v-card-title>
+      </v-card>
+    </v-container>
+    <v-container class="my-5 round1" v-if="round == 0 && start">
       <v-card>
         <v-card-title primary-title class="justify-center">
           <h3 class="headline red--text text--accent-2">Rood</h3>
@@ -58,7 +69,15 @@
           <h3 class="headline red--text text--accent-2">Buiten</h3>
         </v-card-title>
         <v-card-actions class="justify-center">
-          <v-btn large rounded flat color="blue" class="btn px-5 py-7" dense @click="incrementRound">
+          <v-btn
+            large
+            rounded
+            flat
+            color="blue"
+            class="btn px-5 py-7"
+            dense
+            @click="incrementRound"
+          >
             <v-icon>mdi-arrow-right</v-icon>
             <v-icon>mdi-arrow-left</v-icon>
           </v-btn>
@@ -77,7 +96,15 @@
           <h3 class="headline red--text text--accent-2">Niet Hebben</h3>
         </v-card-title>
         <v-card-actions class="justify-center">
-          <v-btn large rounded flat color="blue" class="btn px-5 py-7" dense @click="incrementRound">
+          <v-btn
+            large
+            rounded
+            flat
+            color="blue"
+            class="btn px-5 py-7"
+            dense
+            @click="incrementRound"
+          >
             <v-icon>mdi-check</v-icon>
           </v-btn>
           <v-btn large rounded flat color="red" class="btn px-5 py-7" @click="incrementRound">
@@ -93,22 +120,24 @@
 export default {
   data() {
     return {
-      player: "Tjalle",
-      playerTurn: '',
-      cardName: 'Hier moeten de kaarten komen die de speler al heeft',
+      player: "",
+      playerTurn: "",
+      cardName: "Hier moeten de kaarten komen die de speler al heeft",
       round: 0,
+      card: "",
+      start: false,
     };
   },
   mounted: function() {
-    this.playerTurn = `${this.player}'s turn:`
+    this.playerTurn = `${this.player}'s turn:`;
   },
   methods: {
     incrementRound: function() {
-      this.round++;           
-    }
+      this.round++;
+    },
+    getPlayerAndRound() {}
   }
 };
-  
 </script>
 
 <style>
