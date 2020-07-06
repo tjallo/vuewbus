@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-container>
-      <v-btn @click="getPlayerAndRound">getPlayerAndRound</v-btn>
+      <v-btn @click="incrementRound">getPlayerAndRound</v-btn>
       <v-text-field
         class="centered-input text--darken-3 mt-3"
         :value="playerTurn"
@@ -19,11 +19,16 @@
     <v-container v-if="!start">
       <v-card>
         <v-card-title primary-title class="justify-center">
-        <v-card-actions class="justify-center">
-          <v-btn large rounded flat color="primary" class="btn px-5 py-7" @click="disableStart">
-            Start
-          </v-btn>          
-        </v-card-actions>
+          <v-card-actions class="justify-center">
+            <v-btn
+              large
+              rounded
+              flat
+              color="primary"
+              class="btn px-5 py-7"
+              @click="disableStart"
+            >Start</v-btn>
+          </v-card-actions>
         </v-card-title>
       </v-card>
     </v-container>
@@ -117,15 +122,15 @@
 </template>
 
 <script>
+const axios = require("axios");
 export default {
   data() {
     return {
       player: "",
-      playerTurn: "",
       cardName: "Hier moeten de kaarten komen die de speler al heeft",
       round: 0,
-      card: "",
-      start: false,
+      cardround: 0,
+      start: false
     };
   },
   mounted: function() {
@@ -134,8 +139,31 @@ export default {
   methods: {
     incrementRound: function() {
       this.round++;
+      var playername, cardround, cardname;
+
+      var config = {
+        method: "get",
+        url: "http://localhost:8000/round1/1/",
+        headers: {}
+      };
+
+      axios(config)
+        .then(function(response) {
+          var data = response.data;
+          playername = data[0];
+          cardround = data[1];
+          cardname = data[2];
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+      this.round = cardround;
+      this.player = playername;
+      this.cardName = cardname;
     },
-    getPlayerAndRound() {}
+    disableStart() {
+      this.start = true;
+    }
   }
 };
 </script>
